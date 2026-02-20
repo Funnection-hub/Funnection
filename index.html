@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funnection - Indie Game Studio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #0d0221;
+            --text-color: #e0e0e0;
+            --primary: #ff00d4; /* 네온 핑크 */
+            --secondary: #00f7ff; /* 네온 청록 */
+            --pixel-font: 'Press Start 2P', cursive;
+            --body-font: 'Noto Sans KR', sans-serif;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--body-font);
+            background-image: linear-gradient(rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.2) 50%);
+            background-size: 100% 4px; /* CRT 스캔라인 효과 */
+        }
+
+        h1, h2, h3, .pixel { font-family: var(--pixel-font); text-transform: uppercase; }
+        a { text-decoration: none; color: inherit; }
+        section { padding: 100px 20px; text-align: center; max-width: 1200px; margin: 0 auto; }
+
+        /* --- Header & Lang Switch --- */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px; background: rgba(13, 2, 33, 0.9);
+            position: fixed; width: 100%; box-sizing: border-box; top: 0; z-index: 1000;
+            border-bottom: 2px solid var(--secondary);
+        }
+        .logo { font-size: 1.2rem; color: var(--secondary); text-shadow: 2px 2px var(--primary); }
+        
+        .nav-right { display: flex; align-items: center; gap: 30px; }
+        nav ul { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0; }
+        nav a { font-size: 0.7rem; transition: 0.3s; }
+        nav a:hover { color: var(--primary); }
+
+        .lang-btns button {
+            background: none; border: 1px solid var(--secondary); color: var(--secondary);
+            font-family: var(--pixel-font); font-size: 0.6rem; padding: 5px 8px; cursor: pointer;
+        }
+        .lang-btns button.active { background: var(--secondary); color: var(--bg-color); }
+
+        /* --- Hero Section --- */
+        #hero {
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: radial-gradient(circle, #2a0a66 0%, #0d0221 80%);
+        }
+        #hero h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; text-shadow: 0 0 20px var(--secondary); }
+        #hero p { font-size: 1.2rem; margin-bottom: 40px; opacity: 0.9; }
+
+        .btn-retro {
+            padding: 20px 40px; border: 4px solid var(--primary); color: var(--primary);
+            font-family: var(--pixel-font); box-shadow: 6px 6px 0 var(--secondary);
+            transition: 0.2s; cursor: pointer; background: transparent;
+        }
+        .btn-retro:hover { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--secondary); background: var(--primary); color: white; }
+
+        /* --- Games Grid --- */
+        .game-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
+        .game-card { border: 2px solid var(--secondary); padding: 20px; background: rgba(255,255,255,0.03); transition: 0.3s; }
+        .game-card:hover { transform: scale(1.03); box-shadow: 0 0 20px rgba(0,247,255,0.3); }
+        .game-img { height: 180px; background: #1a1a1a; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-family: var(--pixel-font); font-size: 0.7rem; color: #444; }
+
+        footer { padding: 50px; border-top: 1px solid var(--primary); background: #08011a; font-size: 0.8rem; }
+        .contact-mail { color: var(--secondary); font-weight: bold; font-size: 1.1rem; }
+
+        @media (max-width: 768px) {
+            #hero h1 { font-size: 2rem; }
+            header { padding: 15px; }
+            .nav-right { gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo pixel">FUNNECTION</div>
+        <div class="nav-right">
+            <nav>
+                <ul>
+                    <li><a href="#about" data-i18n="nav_about" class="pixel">ABOUT</a></li>
+                    <li><a href="#games" data-i18n="nav_games" class="pixel">GAMES</a></li>
+                </ul>
+            </nav>
+            <div class="lang-btns">
+                <button id="btn-ko" onclick="changeLang('ko')">KO</button>
+                <button id="btn-en" onclick="changeLang('en')">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero">
+        <h1 data-i18n="hero_title">PRESS START<br>TO CONNECT</h1>
+        <p data-i18n="hero_desc">우리는 픽셀 너머의 재미와 연결을 만듭니다.</p>
+        <button class="btn-retro" data-i18n="hero_btn" onclick="location.href='#games'">VIEW PROJECTS ></button>
+    </section>
+
+    <section id="about">
+        <h2 data-i18n="about_title">WHO WE ARE</h2>
+        <p data-i18n="about_desc">
+            Funnection은 '재미'와 '연결'을 만드는 인디 게임 스튜디오입니다.<br>
+            우리는 본질적인 즐거움을 통해 사람들을 잇는 가치를 창출합니다.
+        </p>
+    </section>
+
+    <section id="games">
+        <h2 data-i18n="games_title">OUR PROJECTS</h2>
+        <div class="game-grid">
+            <div class="game-card">
+                <div class="game-img">GAME IMAGE 01</div>
+                <h3 data-i18n="g1_title">프로젝트 A</h3>
+                <p data-i18n="g1_desc">레트로 스타일의 액션 어드벤처 게임입니다.</p>
+            </div>
+            <div class="game-card">
+                <div class="game-img">GAME IMAGE 02</div>
+                <h3 data-i18n="g2_title">프로젝트 B</h3>
+                <p data-i18n="g2_desc">전 세계 유저와 함께하는 퍼즐 게임입니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p data-i18n="footer_msg">협업 및 비즈니스 문의</p>
+        <p class="contact-mail">contact@funnection.co.kr</p>
+        <p style="margin-top:30px; opacity:0.5;">© 2026 FUNNECTION. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        /* --- 번역 데이터 --- */
+        const i18n = {
+            ko: {
+                nav_about: "소개", nav_games: "게임",
+                hero_title: "접속하여<br>시작하세요",
+                hero_desc: "우리는 픽셀 너머의 재미와 연결을 만듭니다.",
+                hero_btn: "프로젝트 보기 >",
+                about_title: "우리는 누구인가",
+                about_desc: "Funnection은 '재미'와 '연결'을 만드는 인디 게임 스튜디오입니다.<br>우리는 본질적인 즐거움을 통해 사람들을 잇는 가치를 창출합니다.",
+                games_title: "진행 중인 프로젝트",
+                g1_title: "픽셀 던전", g1_desc: "레트로 스타일의 액션 어드벤처 게임입니다.",
+                g2_title: "커넥트 퍼즐", g2_desc: "전 세계 유저와 함께하는 퍼즐 게임입니다.",
+                footer_msg: "협업 및 비즈니스 문의"
+            },
+            en: {
+                nav_about: "ABOUT", nav_games: "GAMES",
+                hero_title: "PRESS START<br>TO CONNECT",
+                hero_desc: "We create fun and connections beyond pixels.",
+                hero_btn: "VIEW PROJECTS >",
+                about_title: "WHO WE ARE",
+                about_desc: "Funnection is an indie game studio building 'Fun' and 'Connection'.<br>We create values that link people through essential joy.",
+                games_title: "OUR PROJECTS",
+                g1_title: "Pixel Dungeon", g1_desc: "A retro-style action adventure game.",
+                g2_title: "Connect Puzzle", g2_desc: "A puzzle game with players worldwide.",
+                footer_msg: "Business & Collaboration"
+            }
+        };
+
+        /* --- 언어 변경 로직 --- */
+        function changeLang(lang) {
+            // 텍스트 교체
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang][key]) {
+                    el.innerHTML = i18n[lang][key];
+                }
+            });
+
+            // 버튼 활성화 상태 표시
+            document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            
+            // HTML lang 속성 변경
+            document.documentElement.lang = lang;
+        }
+
+        // 초기 실행: 브라우저 언어 감지
+        const userLang = navigator.language.startsWith('ko') ? 'ko' : 'en';
+        changeLang(userLang);
+    </script>
+</body>
+</html>
